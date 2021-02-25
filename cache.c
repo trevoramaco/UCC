@@ -124,6 +124,7 @@ char *cache_get(const char *key,unsigned int keylen,unsigned int *datalen,uint32
   return 0;
 }
 
+/* this method deletes a specified entry in the cache to delete */
 void cache_delete(const char * key, unsigned int keylen) {
   uint32 pos, prevpos, nextpos, u;
   unsigned int loop, datalen;
