@@ -22,6 +22,7 @@ int okclient(char ip[4])
   /* Understanding: so basically, we have reached the point where a socket was successfully opened with a valid fd, and now we are ready to use the File
     to communicate (through read and write to the buffer). Let's attempt to open it, if there's a permission error, fp will be null
   */
+  
   for (;;) {
     if((fp = fopen(fn, O_RDWR) != NULL)) {
       fclose(fp);
