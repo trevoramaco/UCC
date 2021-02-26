@@ -37,3 +37,4 @@ int okclient(char ip[4])
     fn[i] = 0;
   }
 }
+
