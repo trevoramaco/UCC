@@ -124,49 +124,6 @@ char *cache_get(const char *key,unsigned int keylen,unsigned int *datalen,uint32
   return 0;
 }
 
-void cache_delete(const char * key, unsigned int keylen) {
-  uint32 pos, prevpos, nextpos, u;
-  unsigned int loop, datalen;
-  double d;
-
-  /* sanity checks */
-  if (!x) return 0;
-  if (keylen > MAXKEYLEN) return 0;
-
-  /* Init positions */
-  prevpos = hash(key,keylen);
-  pos = get4(prevpos);
-  loop = 0;
-
-  /* search table for entry */
-  while(pos) {
-    if (get4(pos + 4) == keylen) {
-      if (pos + 20 + keylen > size) cache_impossible();
-    
-      if (byte_equal(key, keylen, x + pos + 20)) { // we found it!
-        /* figure out size of data */
-        u = get4(pos + 8);
-        if (u > size - pos - 20 - keylen) cache_impossible();
-        datalen = u;
-
-        /* ensure the chain in the linked list isn't broken (have 4-byte pointer of previous entry point to the entry in bucket)*/
-        nextpos = prevpos ^ get4(pos);
-        set4(prevpos,nextpos);
-
-        /*wipe out cache entry*/
-        memset(x + pos, 0, 20 + keylen + datalen);
-
-        break;
-        //TODO: it's possible we can organize the cache better: not a huge fan of the O(n) search complexity
-      }
-    }
-    nextpos = prevpos ^ get4(pos);
-    prevpos = pos;
-    pos = nextpos;
-    if (++loop > 100) return 0;
-  }
-}
-
 void cache_set(const char *key,unsigned int keylen,const char *data,unsigned int datalen,uint32 ttl)
 {
   struct tai now;
