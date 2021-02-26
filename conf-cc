@@ -1,1 +1,0 @@
-cc -O2 -include /usr/include/errno.h
