@@ -95,3 +95,8 @@ hierarchy of sorts.  This is usually the most interesting and fun of
 the problems in this challenge;  we know this question is the one we
 look forward to seeing the most. If you are short on time we would
 still like to see your thoughts on how you'd approach this problem. :-)
+
+Idea: lets filter suspicious calls (checking if IP on my network is making a strange amount of calls to an outisde IP -> then use context because cache has state (so time of day, etc.))
+
+What about data analytics on cache? ----> look at 446 maybe? or a histogram?
+-extension of displaying cache internals? could be cool :)
